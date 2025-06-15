@@ -2,13 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches:
-      - master          # Запуск при пуше в ветку master
-      - new-project     # Запуск при пуше в ветку new-project
+    branches: [ "master", "new-project", "idk", "21" ]
   pull_request:
-    branches:
-      - master          # Запуск при запросе на слияние в ветку master
-      - new-project     # Запуск при запросе на слияние в ветку new-project
+    branches: [ "master", "new-project", "idk", "21" ]
 
 jobs:
   build:
@@ -16,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v2
-      with:
-        java-version: '21'
-        distribution: 'adopt'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Grant execute permission for Gradle wrapper
+        run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build
+      - name: Build with Gradle
+        run: ./gradlew build
 
-    - name: Run tests
-      run: ./gradlew test
+      - name: Run tests
+        run: ./gradlew test
