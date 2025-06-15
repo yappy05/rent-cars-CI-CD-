@@ -1,31 +1,33 @@
-name: CI
+name: Java CI with Gradle
 
 on:
   push:
     branches:
-      - master
-      - new-project  # Укажите ветки, на которые хотите реагировать
+      - main  # Измените на вашу основную ветку
   pull_request:
     branches:
-      - master
-      - new-project
+      - main  # Измените на вашу основную ветку
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'  # Укажите нужную версию JDK
-          distribution: 'temurin'  # Используйте 'temurin', 'adopt', или другой дистрибутив
+    - name: Set up JDK 21
+      uses: actions/setup-java@v2
+      with:
+        java-version: '21'
+        distribution: 'adopt'
 
-      - name: Build with Gradle
-        run: ./gradlew build  # Запускает сборку проекта и тесты
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-      - name: Run tests
-        run: ./gradlew test 
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Run tests
+      run: ./gradlew test
