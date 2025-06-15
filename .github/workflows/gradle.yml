@@ -3,10 +3,12 @@ name: Java CI with Gradle
 on:
   push:
     branches:
-      - main  # Измените на вашу основную ветку
+      - master          # Запуск при пуше в ветку master
+      - new-project     # Запуск при пуше в ветку new-project
   pull_request:
     branches:
-      - main  # Измените на вашу основную ветку
+      - master          # Запуск при запросе на слияние в ветку master
+      - new-project     # Запуск при запросе на слияние в ветку new-project
 
 jobs:
   build:
