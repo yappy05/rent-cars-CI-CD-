@@ -1,0 +1,29 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main  # Запускать на пушах в ветку main
+  pull_request:
+    branches:
+      - main  # Запускать на PR в ветку main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Использовать последнюю версию Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Клонируем репозиторий
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'  # Укажите вашу версию JDK
+          distribution: 'adopt'  # Используйте AdoptOpenJDK
+
+      - name: Build with Gradle
+        run: ./gradlew build  # Собираем проект и запускаем тесты
+
+      - name: Run tests
+        run: ./gradlew test  # Запускаем тесты
